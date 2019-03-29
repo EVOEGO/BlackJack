@@ -1,0 +1,62 @@
+#heading {
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 50px;
+}
+#subheading {
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+}
+#card1 {
+    background: grey;
+    width: 180px;
+    height: 300px;
+    margin-left: 10%;
+    margin-top: 5%;
+    font-family: 'Quicksand', sans-serif;
+    text-align: center;
+}
+
+#card2 {
+    background: grey;
+    width: 180px;
+    height: 300px;
+    margin-left: 28%;
+    margin-top: -23%;
+    font-family: 'Quicksand', sans-serif;
+    text-align: center;
+}
+#card3 {
+    background: grey;
+    width: 180px;
+    height: 300px;
+    margin-left: 60%;
+    margin-top: -22.85%;
+    font-family: 'Quicksand', sans-serif;
+    text-align: center;
+}
+#card4 {
+    background: grey;
+    width: 180px;
+    height: 300px;
+    margin-left: 78%;
+    margin-top: -22.85%;
+    font-family: 'Quicksand', sans-serif;
+    text-align: center;
+}
+
+#userinput{
+    text-align: center;
+    margin-top: 2%;
+    font-family: 'Quicksand', sans-serif;
+}
+#submitbutton {
+    margin-top: 2%;
+}
+#showdealer {
+    text-align: center;
+    margin-top: -18%;
+    font-family: 'Quicksand', sans-serif;
+}
+
