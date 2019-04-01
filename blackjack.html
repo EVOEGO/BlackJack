@@ -9,31 +9,37 @@
 </head>
 <body onload="setCards()">
     <h1 id="heading">Blackjack</h1>
-    <h2 id="subheading">Try bet the dealer</h2>
-    <h3 id="thepot"></h3>
+    <h2 id="subheading">Try beat the dealer</h2>
+    <h3 id="thepot">The Pot: $</h3>
+    <h3 id="winnings">Your Winnings: $</h3>
 
-    <div id="card1">
-        <h1 id="card1text" style="padding-top: 120px;"></h1>
-    </div>
-    <div id="card2">
-        <h1 id="card2text" style="padding-top: 120px;"></h1>
-    </div>
-    <div id="card3">
-        <h1 id="card3text" style="padding-top: 120px;"></h1>
-    </div>
-    <div id="card4">
-        <h1 id="card4text" style="padding-top: 120px;"></h1>
+    <div id="cards">
+        <div id="card1">
+            <h1 id="card1text" style="padding-top: 120px;"></h1>
+        </div>
+        <div id="card2">
+            <h1 id="card2text" style="padding-top: 120px;"></h1>
+        </div>
+        <div id="card3">
+            <h1 id="card3text" style="padding-top: 120px;"></h1>
+        </div>
+        <div id="card4">
+            <h1 id="card4text" style="padding-top: 120px;"></h1>
+        </div>
     </div>
     <div id="userinput">
         <form onsubmit="">
-            Place a bet: <input type="text" name="bet" id="userbet"><br>
-            <input type="submit" value="Bet" id="submitbutton" style="width: 100px;
-            font-family: 'Quicksand', sans-serif;">
-
+            Place a bet: <input type="number" name="bet" id="userbet"><br>
+            <input type="button" value="Bet" id="submitbutton" style="width: 100px;
+            font-family: 'Quicksand', sans-serif;" onclick="addtopot()">
+            <button type="button" id="clearall" style="width: 100px;
+            font-family: 'Quicksand', sans-serif;" onclick="clearallpots()">Clear</button>
         </form>
     </div>
     <div id="showdealer">
         <button type="button" style="width:100px; font-family: 'Quicksand', sans-serif;" onclick="showDealercards()">Show</button>
+        <button type="button" style="width:100px; font-family: 'Quicksand', sans-serif;" onclick="reloadPage()">Reload</button>
+
     </div>
 </body>
 </html>

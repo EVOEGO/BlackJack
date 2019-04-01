@@ -1,13 +1,15 @@
 var cards = [];
 var x;
-var pot;
-var usersbet;
+var totalpot;
+var userbet;
+var previousbet = 0;
+var playerswinnings = 100;
+var preivouswinnings = 0;
 
-function currentpot(){
-    usersbet = document.getElementById("userbet");
-    pot = usersbet * 2;
-    document.getElementById("thepot").innerHTML = "The Pot: " + pot;
+function reloadPage(){
+    document.location.reload();
 }
+
 function sleep(delay) {
     var start = new Date().getTime();
     while (new Date().getTime() < start + delay);
@@ -50,31 +52,64 @@ function setCards(){
     setcard3();
     setcard4();
     document.getElementById('card4text').style.display = "none";
+    document.getElementById("thepot").innerHTML = "The Pot: $" + localStorage.getItem("pot");
+    document.getElementById("winnings").innerHTML = "Your Winnings: $" + localStorage.getItem("playerswinnings");
 }
 function showDealercards() {
     document.getElementById('card4text').style.display = "block";
+    document.getElementById('card4text').style.marginTop = "-20px";
     sleep(1000);
     rules(cards[0], cards[1]);
     rules(cards[2], cards[3]);
+    if(checkifBust(cards[0], cards[1]) == true){
+        alert("Player has gone bust, better next time.");
+        subtractplayerswinnings();
+        clearpot();
+        reloadPage();
+        return;
+    } else if(checkifBust(cards[2], cards[3]) == true){
+        alert("Dealer has gone bust, player wins.");
+        addtoplayerswinnings();
+        clearpot();
+        reloadPage();
+        return;
+    }
+
     var usertotal = cards[0] + cards[1];
     var dealertotal = cards[2] + cards[3];
 
-    if(usertotal < dealertotal){
+    if(usertotal == 21){
+        alert("BLACKJACK!!! PLAYER WINS");
+        addtoplayerswinnings();
+        clearpot();
+        reloadPage();
+    }
+    else if(usertotal < dealertotal){
         alert("Dealer wins");
+        subtractplayerswinnings();
+        clearpot();
+        reloadPage();
     } else {
         alert("You win");
+        addtoplayerswinnings();
+        clearpot();
+        reloadPage();
     }
 }
 function checkifAce(number){
-    if(cards[number] == 0){
-        cards[number] = 11;
-    } else if(cards[number] == 1){
-        cards[number] = 11;
+    if(number == 0){
+        return true;
+    } else if(number == 1){
+        return true;
+    } else {
+        return false;
     }
 }
 function checkifRoyal(number){
-    if(cards[number] > 10){
-        cards[number] = 10;
+    if(number > 10){
+        return true;
+    } else {
+        return false;
     }
 }
 function checkifBust(number1, number2){
@@ -83,13 +118,44 @@ function checkifBust(number1, number2){
         return true;
     }
 }
+
 function rules(number1, number2){
     checkifRoyal(number1);
     checkifRoyal(number2);
     checkifAce(number1);
     checkifAce(number2);
-    checkifBust(number1, number2);
-    if(checkifBust(number1, number2) == true){
-        alert("You have gone bust");
-    }
+}
+function clearpot(){
+    localStorage.setItem("pot", '0');
+    document.getElementById("thepot").innerHTML = "The Pot: $";
+}
+function addtopot(){
+    userbet = document.getElementById("userbet").value;
+    calculatepot();
+    localStorage.setItem("pot", totalpot);
+    document.getElementById("thepot").innerHTML = "The Pot: $" + totalpot;
+    previousbet = userbet;
+    userbet = 0;
+    document.getElementById("userbet").value = "'";
+}
+function calculatepot(){
+    userbet = (parseInt(userbet) + previousbet);
+    totalpot = userbet;
+}
+function addtoplayerswinnings(){
+    playerswinnings = playerswinnings + totalpot;
+    localStorage.setItem("playerswinnings", playerswinnings);
+    document.getElementById("winnings").innerHTML = "Your Winnings: $" + playerswinnings;
+    preivouswinnings = playerswinnings;
+}
+function subtractplayerswinnings(){
+    playerswinnings = playerswinnings - totalpot;
+    localStorage.setItem("playerswinnings", playerswinnings);
+    document.getElementById("winnings").innerHTML = "Your Winnings: $" + playerswinnings;
+}
+function clearallpots(){
+    playerswinnings = 100;
+    localStorage.setItem("playerswinnings", playerswinnings);
+    localStorage.setItem("pot", totalpot);
+    location.reload();
 }

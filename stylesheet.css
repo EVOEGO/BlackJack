@@ -40,8 +40,9 @@
     background: grey;
     width: 180px;
     height: 300px;
+    margin-top: -21.3%;
     margin-left: 78%;
-    margin-top: -22.85%;
+
     font-family: 'Quicksand', sans-serif;
     text-align: center;
 }
@@ -58,5 +59,14 @@
     text-align: center;
     margin-top: -18%;
     font-family: 'Quicksand', sans-serif;
+}
+#thepot {
+    font-family: 'Quicksand', sans-serif;
+    margin-left: 47%;
+}
+#winnings {
+    font-family: 'Quicksand', sans-serif;
+    margin-left: 10%;
+    margin-top: -3%;
 }
 
