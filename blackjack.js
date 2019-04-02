@@ -7,7 +7,8 @@ var playerswinnings = 100;
 var preivouswinnings = 0;
 
 function reloadPage(){
-    document.location.reload();
+    setCards();
+    setupdisplay();
 }
 
 function sleep(delay) {
@@ -17,18 +18,21 @@ function sleep(delay) {
 function setupcards(){
     for(x = 0; x < 4; x++){
         cards[x] = Math.floor(Math.random() * 13);
-
     }
 }
 function sortCard(number, cardnumber){
     if(cards[number] == 0 || cards[number] == 1){
         document.getElementById(cardnumber).innerHTML = "ACE";
+        cards[number] = 11;
     }else if(cards[number] == 11){
         document.getElementById(cardnumber).innerHTML = "Jack";
+        cards[number] = 10;
     } else if(cards[number] == 12){
         document.getElementById(cardnumber).innerHTML = "Queen";
+        cards[number] = 10;
     } else if(cards[number] == 13){
         document.getElementById(cardnumber).innerHTML = "King";
+        cards[number] = 10;
     } else {
         document.getElementById(cardnumber).innerHTML = cards[number];
     }
@@ -51,26 +55,38 @@ function setCards(){
     setcard2();
     setcard3();
     setcard4();
+}
+function setupdisplay(){
     document.getElementById('card4text').style.display = "none";
     document.getElementById("thepot").innerHTML = "The Pot: $" + localStorage.getItem("pot");
     document.getElementById("winnings").innerHTML = "Your Winnings: $" + localStorage.getItem("playerswinnings");
 }
+function initalsetup(){
+    setCards();
+    document.getElementById('card4text').style.display = "none";
+    localStorage.setItem("pot", "0");
+    document.getElementById("thepot").innerHTML = "The Pot: $" + localStorage.getItem("pot", "0");
+    localStorage.setItem("playerswinnings", playerswinnings);
+    document.getElementById("winnings").innerHTML = "Your Winnings: $" + localStorage.getItem("playerswinnings", playerswinnings);
+
+}
 function showDealercards() {
-    document.getElementById('card4text').style.display = "block";
-    document.getElementById('card4text').style.marginTop = "-20px";
-    sleep(1000);
-    rules(cards[0], cards[1]);
-    rules(cards[2], cards[3]);
     if(checkifBust(cards[0], cards[1]) == true){
         alert("Player has gone bust, better next time.");
+        document.getElementById('card4text').style.display = "block";
+        document.getElementById('card4text').style.marginTop = "-20px";
         subtractplayerswinnings();
         clearpot();
+        sleep(1000);
         reloadPage();
         return;
     } else if(checkifBust(cards[2], cards[3]) == true){
         alert("Dealer has gone bust, player wins.");
+        document.getElementById('card4text').style.display = "block";
+        document.getElementById('card4text').style.marginTop = "-20px";
         addtoplayerswinnings();
         clearpot();
+        sleep(1000);
         reloadPage();
         return;
     }
@@ -80,19 +96,28 @@ function showDealercards() {
 
     if(usertotal == 21){
         alert("BLACKJACK!!! PLAYER WINS");
+        document.getElementById('card4text').style.display = "block";
+        document.getElementById('card4text').style.marginTop = "-20px";
         addtoplayerswinnings();
         clearpot();
+        sleep(1000);
         reloadPage();
     }
     else if(usertotal < dealertotal){
         alert("Dealer wins");
+        document.getElementById('card4text').style.display = "block";
+        document.getElementById('card4text').style.marginTop = "-20px";
         subtractplayerswinnings();
         clearpot();
+        sleep(1000);
         reloadPage();
     } else {
         alert("You win");
+        document.getElementById('card4text').style.display = "block";
+        document.getElementById('card4text').style.marginTop = "-20px";
         addtoplayerswinnings();
         clearpot();
+        sleep(1000);
         reloadPage();
     }
 }
@@ -139,7 +164,7 @@ function addtopot(){
     document.getElementById("userbet").value = "'";
 }
 function calculatepot(){
-    userbet = (parseInt(userbet) + previousbet);
+    userbet = parseInt(userbet);
     totalpot = userbet;
 }
 function addtoplayerswinnings(){
